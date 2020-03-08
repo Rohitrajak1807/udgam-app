@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:udgam/models/splash.dart';
+import 'package:udgam/screens/splash_screen.dart';
 
 void main() => runApp(MyApp());
 

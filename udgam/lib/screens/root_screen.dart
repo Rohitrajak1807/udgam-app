@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:udgam/screens/login_signup_page.dart';
-import 'package:udgam/services/authentication.dart';
-import 'package:udgam/screens/blog.dart';
+import 'package:udgam/screens/login_signup_screen.dart';
+import 'package:udgam/services/authentication_service.dart';
+import 'package:udgam/screens/blog_screen.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
@@ -75,7 +75,7 @@ class _RootPageState extends State<RootPage> {
         return buildWaitingScreen();
         break;
       case AuthStatus.NOT_LOGGED_IN:
-        return new LoginSignupPage(
+        return new LoginSignUpPage(
           auth: widget.auth,
           loginCallback: loginCallback,
         );

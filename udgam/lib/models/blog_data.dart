@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
-import 'show_image.dart';
+import '../widgets/show_image.dart';
 import 'likes.dart';
 import 'package:cache_image/cache_image.dart';
 
@@ -60,7 +60,7 @@ class BlogData extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (_) {
                           return ShowImage(
-                              imglnk:
+                              imageLink:
                               'gs://udgamblog.appspot.com/blogimg/${snapshot.key}.${snapshot.value['ext']}');
                         },
                       ),

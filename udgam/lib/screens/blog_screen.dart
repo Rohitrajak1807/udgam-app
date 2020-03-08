@@ -1,20 +1,12 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:udgam/models//post.dart';
 import 'package:udgam/models/blog_data.dart';
-import 'package:udgam/models/add_post_dialog.dart';
-import 'package:udgam/services/authentication.dart';
+import 'package:udgam/widgets/add_post_dialog.dart';
+import 'package:udgam/services/authentication_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:udgam/widgets/main_drawer.dart';
-
-
-//Blog Backend System
-////Post Backend
-
-
 
 ///Post Backend end
 class Blog extends StatefulWidget {
@@ -25,20 +17,19 @@ class Blog extends StatefulWidget {
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userId;
+  static const String screenTitle = "Feed";
 
   @override
   State<StatefulWidget> createState() => new _BlogState();
 }
 
 class _BlogState extends State<Blog> {
-  
-
-
-   FirebaseDatabase _database = FirebaseDatabase.instance;
-  //List<Post> postsData = <Post>[];
+  FirebaseDatabase _database = FirebaseDatabase.instance;
   String postsNode = "posts";
-  // String uploadedFileURL;
-  final newPostbar = SnackBar(content: Text('New Post Added, Swipe Down'));
+
+  final newPostbar = SnackBar(
+    content: Text('New Post Added, Swipe Down'),
+  );
   String _name;
   bool _newpost = false;
 
@@ -48,27 +39,14 @@ class _BlogState extends State<Blog> {
             .child("users/${widget.userId}/Name")
             .once())
         .value;
-    //print(_name);
     _name = result;
   }
 
-
-
-//  void getEmail(String uid) async{
-//    String mail =  (await FirebaseDatabase.instance
-//        .reference()
-//        .child("users/${widget.userId}/Email")
-//        .once())
-//        .value;
-//    uid = mail;
-//  }
-
-
   ScrollController _scrollController;
+
   @override
   void initState() {
-   // _database.reference().child(postsNode).onChildAdded.listen(_childAdded);
-
+    super.initState();
     _scrollController = new ScrollController();
   }
 
@@ -79,28 +57,18 @@ class _BlogState extends State<Blog> {
 
   Widget build(BuildContext context) {
     getName();
-
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: Text(
-        "Udgam'20",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Colors.white,
-        decoration: TextDecoration.none,
-        fontFamily: 'IndieFlower',
-        fontSize: 23.5,
 
-    ),
-        ),
-        backgroundColor: Colors.black38,
+        textTheme: Theme.of(context).appBarTheme.textTheme,
+        title: Text(Blog.screenTitle),
+        backgroundColor: Theme.of(context).backgroundColor,
       ),
       body: Container(
-        color: Colors.grey,
+        color: Theme.of(context).primaryColor,
         child: Column(
           children: <Widget>[
-
             Expanded(
               child: FirebaseAnimatedList(
                 controller: _scrollController,
@@ -108,11 +76,7 @@ class _BlogState extends State<Blog> {
                   child: Container(
                     width: 20.0,
                     height: 20.0,
-                    child: CircularProgressIndicator(
-                        // value: event == null
-                        // ? 0
-                        // : event.cumulativeBytesLoaded / event.expectedTotalBytes,
-                        ),
+                    child: CircularProgressIndicator(),
                   ),
                 ),
                 reverse: true,
@@ -139,12 +103,15 @@ class _BlogState extends State<Blog> {
                 heroTag: null,
                 onPressed: () {
                   showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (_) {
-                        return AddPostDial(name: _name, uid: widget.userId,);
-                      });
-
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) {
+                      return AddPostDial(
+                        name: _name,
+                        uid: widget.userId,
+                      );
+                    },
+                  );
                 },
                 child: Icon(
                   Icons.add,
@@ -154,13 +121,10 @@ class _BlogState extends State<Blog> {
                 tooltip: 'Add a Post',
               ),
             ),
-
-
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: FloatingActionButton(
                 onPressed: () {
-
                   _scrollToTop();
                 },
                 child: Icon(
@@ -171,23 +135,9 @@ class _BlogState extends State<Blog> {
                 tooltip: 'Scroll to Top',
               ),
             ),
-
           ],
-        )
+        ),
       ),
     );
   }
-
-//  _childAdded(Event event) {
-//    setState(
-//      () {
-//        _newpost = true;
-//
-//        postsData.insert(
-//          0,
-//          Post.fromSnapshot(event.snapshot),
-//        );
-//      },
-//    );
-//  }
 }

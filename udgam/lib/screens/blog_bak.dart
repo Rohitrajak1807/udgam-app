@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:udgam/models//post.dart';
 import 'package:udgam/models/likes.dart';
-import 'package:udgam/models/add_post_dialog.dart';
-import 'package:udgam/services/authentication.dart';
+import 'package:udgam/widgets/add_post_dialog.dart';
+import 'package:udgam/services/authentication_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:cache_image/cache_image.dart';
-import 'package:udgam/models/show_image.dart';
+import 'package:udgam/widgets/show_image.dart';
 import 'package:udgam/widgets/main_drawer.dart';
 
 
@@ -163,7 +163,7 @@ class _BlogState extends State<Blog> {
                                     MaterialPageRoute(
                                       builder: (_) {
                                         return ShowImage(
-                                            imglnk:
+                                            imageLink:
                                                 'gs://udgamblog.appspot.com/blogimg/${postsData[index].key}.${postsData[index].ext}');
                                       },
                                     ),

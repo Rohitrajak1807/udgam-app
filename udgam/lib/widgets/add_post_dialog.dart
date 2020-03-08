@@ -14,9 +14,7 @@ class AddPostDial extends StatefulWidget {
 }
 
 class _AddPostDialState extends State<AddPostDial> {
-  @override
-
-  final GlobalKey<FormState> formkey = new GlobalKey();
+  final GlobalKey<FormState> formKey = new GlobalKey();
 
     Post post = Post(0, "", "", "", "");
     File _image;
@@ -24,16 +22,17 @@ class _AddPostDialState extends State<AddPostDial> {
 
   @override
   void initState() {
+    super.initState();
     _cnf = true;
 
   }
 
 
     void insertPost() async{
-      final FormState form = formkey.currentState;
+      final FormState form = formKey.currentState;
       if (form.validate()) {
         form.save();
-        
+
         if(_image!=null){
 
           form.reset();
@@ -48,13 +47,13 @@ class _AddPostDialState extends State<AddPostDial> {
           post.date = DateTime.now().millisecondsSinceEpoch;
           post.by = widget.name;
           post.uid = widget.uid;
-          String imgkey;
+          String imageKey;
           String k = _image.path.split('.').last;
           post.ext = k;
           PostService postService = PostService(post.toMap());
-          imgkey = postService.addPost();
+          imageKey = postService.addPost();
 
-          await postService.uploadPic(_image, imgkey, k);
+          await postService.uploadPic(_image, imageKey, k);
           Navigator.pop(context);
           _image = null;
         }
@@ -93,7 +92,7 @@ class _AddPostDialState extends State<AddPostDial> {
       content: Container(
         child: SingleChildScrollView(
           child: Form(
-            key: formkey,
+            key: formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -164,8 +163,6 @@ class _AddPostDialState extends State<AddPostDial> {
           onPressed: _cnf!=true?null:() {
             Navigator.pop(context);
           },
-
-
         ),
       ],
     );
