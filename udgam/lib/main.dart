@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:udgam/screens/home_screen.dart';
-
+import 'package:udgam/models/splash.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,9 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Udgam 2020",
       theme: ThemeData.dark(),
-      routes: {
-        "/": (context) => HomeScreen(),
-      },
+      home: Splash(),
     );
   }
 }
