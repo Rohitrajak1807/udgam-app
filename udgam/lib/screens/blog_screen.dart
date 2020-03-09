@@ -27,11 +27,11 @@ class _BlogState extends State<Blog> {
   FirebaseDatabase _database = FirebaseDatabase.instance;
   String postsNode = "posts";
 
-  final newPostbar = SnackBar(
-    content: Text('New Post Added, Swipe Down'),
-  );
+
   String _name;
-  bool _newpost = false;
+  //  bool _newpost = false;
+//
+//  bool _hideScrollTop = true;
 
   void getName() async {
     String result = (await FirebaseDatabase.instance
@@ -53,10 +53,13 @@ class _BlogState extends State<Blog> {
   void _scrollToTop() {
     _scrollController.animateTo(0,
         duration: new Duration(seconds: 2), curve: Curves.ease);
+
   }
+
 
   Widget build(BuildContext context) {
     getName();
+
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
@@ -72,6 +75,7 @@ class _BlogState extends State<Blog> {
             Expanded(
               child: FirebaseAnimatedList(
                 controller: _scrollController,
+                sort: (a, b) => b.key.compareTo(a.key),
                 defaultChild: Center(
                   child: Container(
                     width: 20.0,
@@ -79,7 +83,7 @@ class _BlogState extends State<Blog> {
                     child: CircularProgressIndicator(),
                   ),
                 ),
-                reverse: true,
+
                 query:
                     _database.reference().child(postsNode).orderByChild('date'),
                 itemBuilder: (_, DataSnapshot snap, Animation<double> animation,
@@ -121,11 +125,14 @@ class _BlogState extends State<Blog> {
                 tooltip: 'Add a Post',
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: FloatingActionButton(
                 onPressed: () {
                   _scrollToTop();
+
+
                 },
                 child: Icon(
                   Icons.arrow_upward,

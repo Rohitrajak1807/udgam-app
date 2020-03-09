@@ -8,7 +8,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Udgam 2020",
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
+//      darkTheme: ThemeData.dark(),
+
       home: Splash(),
     );
   }

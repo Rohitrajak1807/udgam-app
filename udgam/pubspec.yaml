@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: ^0.5.6+2
   intl: ^0.16.1
   custom_splash: ^0.0.2
+  ntp: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -51,8 +52,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-assets:
-  - /assets/images/
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -80,7 +81,7 @@ assets:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-fonts:
-  - family: IndieFlower
-    fonts:
-      - asset: fonts/IndieFlower-Regular.ttf
+  fonts:
+    - family: IndieFlower
+      fonts:
+        - asset: fonts/IndieFlower-Regular.ttf

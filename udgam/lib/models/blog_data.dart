@@ -2,20 +2,32 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
-import '../widgets/show_image.dart';
+import 'package:udgam/widgets/show_image.dart';
 import 'likes.dart';
 import 'package:cache_image/cache_image.dart';
 
 @override
-class BlogData extends StatelessWidget {
+class BlogData extends StatefulWidget {
   final DataSnapshot snapshot;
 
   BlogData(this.snapshot);
 
-  bool _liked = false;
-
   @override
+  _BlogDataState createState() => _BlogDataState();
+}
+
+class _BlogDataState extends State<BlogData> {
+  bool _liked=true;
+  @override
+
+  void initState() {
+    // _database.reference().child(postsNode).onChildAdded.listen(_childAdded);
+
+  }
+  @override
+
   Widget build(BuildContext context) {
+
     return new Column(
 
       children: <Widget>[
@@ -29,12 +41,12 @@ class BlogData extends StatelessWidget {
             children: <Widget>[
               ListTile(
 
-                subtitle: Text('gs://udgamblog.appspot.com/blogimg/${snapshot.key}.${snapshot.value['ext']}'),
+                subtitle: Text('College Name'),
                 leading: CircleAvatar(
                     backgroundColor: Colors.blue,
                     child: Icon(Icons.account_circle)
                 ),
-                title: Text('${snapshot.value['by']}',
+                title: Text('${widget.snapshot.value['by']}',
                     style: TextStyle(fontWeight: FontWeight.w600)),
                 trailing: Icon(Icons.more_vert),
               ),
@@ -49,7 +61,7 @@ class BlogData extends StatelessWidget {
                     new Duration(milliseconds: 60),
                     fit: BoxFit.cover,
                     image: CacheImage(
-                      'gs://udgamblog.appspot.com/blogimg/${snapshot.key}.${snapshot.value['ext']}',
+                      'gs://udgamblog.appspot.com/blogimg/${widget.snapshot.key}.${widget.snapshot.value['ext']}',
                     ),
                     placeholder:
                     AssetImage('assets/images/loader.gif'),
@@ -61,7 +73,7 @@ class BlogData extends StatelessWidget {
                         builder: (_) {
                           return ShowImage(
                               imageLink:
-                              'gs://udgamblog.appspot.com/blogimg/${snapshot.key}.${snapshot.value['ext']}');
+                              'gs://udgamblog.appspot.com/blogimg/${widget.snapshot.key}.${widget.snapshot.value['ext']}');
                         },
                       ),
                     );
@@ -74,7 +86,7 @@ class BlogData extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
                   child: Text(
-                    snapshot.value['body'], textAlign: TextAlign.justify,),
+                    widget.snapshot.value['body'], textAlign: TextAlign.justify,),
                 ),
 
               ),
@@ -87,8 +99,16 @@ class BlogData extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.favorite, color: Colors.red),
-                          onPressed: () {},),
+                          icon: Icon(_liked==false?Icons.favorite:Icons.favorite_border, color: Colors.red),
+                          onPressed: () {
+                            print(_liked);
+                            setState(() {
+                              _liked = !_liked;
+                            });
+
+
+                          },
+                        ),
 
 
                         GestureDetector(child: Text('5k'), onTap: () {
@@ -106,7 +126,7 @@ class BlogData extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
                       child: Text(DateFormat('dd MMM yyyy - KK:mm a').format(
                           DateTime.fromMillisecondsSinceEpoch(
-                              snapshot.value['date'])).toString(),
+                              widget.snapshot.value['date'])).toString(),
                         textAlign: TextAlign.right,),
                     ),
 
