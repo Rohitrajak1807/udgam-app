@@ -21,7 +21,6 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userId = "";
- // FirebaseUser _userdata;
   @override
   void initState() {
     super.initState();
@@ -37,15 +36,14 @@ class _RootPageState extends State<RootPage> {
   }
 
   void loginCallback() {
-   
-    
+
+
     widget.auth.getCurrentUser().then((user) {
       setState(() {
         _userId = user.uid.toString();
-        //_name = user; 
       });
     });
-    
+
     setState(() {
       authStatus = AuthStatus.LOGGED_IN;
     });
@@ -75,14 +73,14 @@ class _RootPageState extends State<RootPage> {
         return buildWaitingScreen();
         break;
       case AuthStatus.NOT_LOGGED_IN:
-        return new LoginSignUpPage(
+        return LoginSignUpPage(
           auth: widget.auth,
           loginCallback: loginCallback,
         );
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          return new Blog(
+          return Blog(
             userId: _userId,
           //  user: _userdata,
             auth: widget.auth,

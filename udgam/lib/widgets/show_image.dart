@@ -30,11 +30,7 @@ class _ShowImageState extends State<ShowImage> {
               child: Container(
                 width: 20.0,
                 height: 20.0,
-                child: CircularProgressIndicator(
-                    // value: event == null
-                    // ? 0
-                    // : event.cumulativeBytesLoaded / event.expectedTotalBytes,
-                    ),
+                child: CircularProgressIndicator(),
               ),
             ),
           ),

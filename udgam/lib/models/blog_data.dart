@@ -21,6 +21,7 @@ class _BlogDataState extends State<BlogData> {
   @override
 
   void initState() {
+    super.initState();
     // _database.reference().child(postsNode).onChildAdded.listen(_childAdded);
 
   }

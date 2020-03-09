@@ -26,12 +26,7 @@ class Blog extends StatefulWidget {
 class _BlogState extends State<Blog> {
   FirebaseDatabase _database = FirebaseDatabase.instance;
   String postsNode = "posts";
-
-
   String _name;
-  //  bool _newpost = false;
-//
-//  bool _hideScrollTop = true;
 
   void getName() async {
     String result = (await FirebaseDatabase.instance
@@ -52,7 +47,7 @@ class _BlogState extends State<Blog> {
 
   void _scrollToTop() {
     _scrollController.animateTo(0,
-        duration: new Duration(seconds: 2), curve: Curves.ease);
+        duration: Duration(seconds: 2), curve: Curves.ease);
 
   }
 
@@ -63,7 +58,6 @@ class _BlogState extends State<Blog> {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-
         textTheme: Theme.of(context).appBarTheme.textTheme,
         title: Text(Blog.screenTitle),
         backgroundColor: Theme.of(context).backgroundColor,
@@ -131,8 +125,6 @@ class _BlogState extends State<Blog> {
               child: FloatingActionButton(
                 onPressed: () {
                   _scrollToTop();
-
-
                 },
                 child: Icon(
                   Icons.arrow_upward,

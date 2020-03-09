@@ -151,7 +151,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   }
 
   Widget showLogo() {
-    return new Hero(
+    return Hero(
       tag: 'hero',
       child: Padding(
         padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
@@ -167,10 +167,10 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   Widget showNameInput() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 10.0),
-      child: new TextFormField(
+      child: TextFormField(
         maxLines: 1,
         autofocus: false,
-        decoration: new InputDecoration(
+        decoration: InputDecoration(
           hintText: 'Full Name',
           icon: new Icon(
             Icons.nature_people,
