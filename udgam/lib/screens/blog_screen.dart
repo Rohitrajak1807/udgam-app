@@ -13,7 +13,7 @@ class Blog extends StatefulWidget {
   @override
   Blog({Key key, this.auth, this.userId, this.logoutCallback})
       : super(key: key);
-
+  static const routeName = '/blog_screen';
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userId;
@@ -48,9 +48,7 @@ class _BlogState extends State<Blog> {
   void _scrollToTop() {
     _scrollController.animateTo(0,
         duration: Duration(seconds: 2), curve: Curves.ease);
-
   }
-
 
   Widget build(BuildContext context) {
     getName();
@@ -60,7 +58,7 @@ class _BlogState extends State<Blog> {
       appBar: AppBar(
         textTheme: Theme.of(context).appBarTheme.textTheme,
         title: Text(Blog.screenTitle),
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).appBarTheme.color,
       ),
       body: Container(
         color: Theme.of(context).primaryColor,
@@ -77,7 +75,6 @@ class _BlogState extends State<Blog> {
                     child: CircularProgressIndicator(),
                   ),
                 ),
-
                 query:
                     _database.reference().child(postsNode).orderByChild('date'),
                 itemBuilder: (_, DataSnapshot snap, Animation<double> animation,
@@ -119,7 +116,6 @@ class _BlogState extends State<Blog> {
                 tooltip: 'Add a Post',
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: FloatingActionButton(

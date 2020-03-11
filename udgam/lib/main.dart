@@ -1,9 +1,16 @@
 import 'package:custom_splash/custom_splash.dart';
 import 'package:flutter/material.dart';
+import 'package:udgam/screens/about_screen.dart';
+import 'package:udgam/screens/blog_screen.dart';
+import 'package:udgam/screens/events_screen.dart';
+import 'package:udgam/screens/gallery_screen.dart';
 import 'package:udgam/screens/root_screen.dart';
+import 'package:udgam/screens/sponsors_screen.dart';
+import 'package:udgam/screens/teams_screen.dart';
 import 'package:udgam/services/authentication_service.dart';
 
 void main() => runApp(MyApp());
+
 // TODO Use MediaQuery to make the app responsive
 class MyApp extends StatelessWidget {
   @override
@@ -12,6 +19,14 @@ class MyApp extends StatelessWidget {
       title: "Udgam 2020",
       theme: ThemeData.dark(),
       home: buildCustomSplashScreen(context),
+      routes: {
+        Blog.routeName: (context) => Blog(),
+        Events.routeName: (context) => Events(),
+        Gallery.routeName: (context) => Gallery(),
+        Teams.routeName: (context) => Teams(),
+        Sponsors.routeName: (context) => Sponsors(),
+        About.routeName: (context) => About(),
+      },
     );
   }
 

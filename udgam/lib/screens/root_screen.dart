@@ -82,7 +82,6 @@ class _RootPageState extends State<RootPage> {
         if (_userId.length > 0 && _userId != null) {
           return Blog(
             userId: _userId,
-          //  user: _userdata,
             auth: widget.auth,
             logoutCallback: logoutCallback,
           );
