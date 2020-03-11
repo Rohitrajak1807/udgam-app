@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
     return Stack(
       children: <Widget>[
         CustomSplash(
-          imagePath: 'assets/images/logo.jpg',
-          backGroundColor: Colors.white,
+          imagePath: 'assets/images/splash.png',
+          backGroundColor: Theme.of(context).backgroundColor,
           animationEffect: 'zoom-in',
           logoSize: 500.0,
           home: RootPage(
