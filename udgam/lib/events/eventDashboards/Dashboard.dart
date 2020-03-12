@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:events/screens/days/Day_1.dart';
-import 'package:events/screens/days/Day_2.dart';
-import 'package:events/screens/days/Day_3.dart';
-import 'package:events/screens/days/MiscellaneousEvents.dart';
+import 'package:udgam/events/screens/days/day_1.dart';
+import 'package:udgam/events/screens/days/day_2.dart';
+import 'package:udgam/events/screens/days/day_3.dart';
+import 'package:udgam/events/screens/days/miscellaneous_events.dart';
 
 class DashboardPage extends StatefulWidget {
   

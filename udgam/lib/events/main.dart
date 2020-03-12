@@ -1,5 +1,5 @@
-import 'package:events/screens/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:udgam/events/screens/homepage.dart';
 
 void main() => runApp(MyApp());
 

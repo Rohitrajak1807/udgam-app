@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:events/eventDashboards/Dashboard.dart';
+import 'package:udgam/events/eventDashboards/Dashboard.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,14 +9,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   var selectedItem = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: DashboardPage(),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
         backgroundColor: Colors.transparent,
         selectedItemColor: Color(0xFFC2185B),
-        iconSize:30.0,
+        iconSize: 30.0,
         currentIndex: selectedItem,
         unselectedLabelStyle: TextStyle(color: Color(0xFF1B1B1B)),
         unselectedItemColor: Colors.black87,
@@ -26,32 +28,23 @@ class _HomePageState extends State<HomePage>
           });
         },
         items: [
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFF1B1B1B),
-            icon: Icon(Icons.extension),
-            title: Container(
-              height: 0.0,
-              width: 0.0,
-              ),
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFF1B1B1B),
-            icon: Icon(Icons.whatshot),
-            title: Container(
-              height: 0.0,
-              width: 0.0,
-              ),
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFF1B1B1B),
-            icon: Icon(Icons.person_outline),
-            title: Container(
-              height: 0.0,
-              width: 0.0,
-              ),
-          ),
+          buildNavBarItems(context, Icons.extension, "title"),
+          buildNavBarItems(context, Icons.whatshot, "title"),
+          buildNavBarItems(context, Icons.person_outline, "title"),
         ],
       ),
     );
+  }
+
+  BottomNavigationBarItem buildNavBarItems(
+      BuildContext context, IconData icon, String title) {
+    return BottomNavigationBarItem(
+        backgroundColor: Theme.of(context).toggleButtonsTheme.color,
+        icon: Icon(icon),
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.button,
+        )
+        );
   }
 }

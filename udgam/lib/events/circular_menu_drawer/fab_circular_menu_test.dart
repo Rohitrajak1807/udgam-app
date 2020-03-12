@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:events/circular_menu_drawer/fab_circular_menu.dart';
+import 'package:udgam/events/circular_menu_drawer/fab_circular_menu.dart';
 
 void main() {
 

@@ -1,10 +1,9 @@
-import 'package:events/screens/EventsInfo.dart';
 import 'package:flutter/material.dart';
-import 'package:events/eventsDatabase/EventsDetails.dart';
+import 'package:udgam/events/screens/events_info.dart';
+import 'package:udgam/events/eventsDatabase/events_details.dart';
 
 class EventPageNavigation extends StatefulWidget {
   final int index,dayNumber;
-  // final List<Map<String, String>> data;
   EventPageNavigation({@required this.index,@required this.dayNumber});
   @override
   _EventPageNavigationState createState() => _EventPageNavigationState();
@@ -93,9 +92,9 @@ class _EventPageNavigationState extends State<EventPageNavigation> {
 // // import 'dart:math';
 // import 'dart:ui';
 
-// import 'package:events/About_us.dart';
+// import 'package:events/about_us.dart';
 // import 'package:events/EventData.dart';
-// // import 'package:events/EventsInfo.dart';
+// // import 'package:events/events_info.dart';
 // import 'package:flutter/material.dart';
 // import 'package:liquid_swipe/Constants/Helpers.dart';
 // import 'package:liquid_swipe/liquid_swipe.dart';
