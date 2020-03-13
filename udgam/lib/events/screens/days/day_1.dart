@@ -14,7 +14,7 @@ class Day1 extends StatefulWidget {
 }
 
 var mov = 27.0 / 41.0;
-var aspectratio = mov * 1.2;
+var aspectRatio = mov * 1.2;
 
 class _Day1State extends State<Day1> {
   static var _eventListDay1 = eventsList[0]; ////assigning day 1 list
@@ -98,10 +98,8 @@ class _Day1State extends State<Day1> {
                 Expanded(
                   flex: 2,
                   child: Column(
-                    // margin: const EdgeInsets.only(top:30),
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    // alignment: Alignment.center,
                     children: <Widget>[
                       InkWell(
                         child: Stack(
@@ -109,7 +107,6 @@ class _Day1State extends State<Day1> {
                             PosterScrollWidget(_eventListDay1, currentPage),
                             Positioned.fill(
                               child: PageView.builder(
-                                //this PageView is basically a glorified GestureDetector.
                                 itemCount: _eventListDay1.length,
                                 controller: controller,
                                 itemBuilder: (context, index) {},
