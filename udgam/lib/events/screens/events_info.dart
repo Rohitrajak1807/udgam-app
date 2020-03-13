@@ -33,7 +33,7 @@ class EventsInfo extends StatefulWidget {
 
 class _EventsInfoState extends State<EventsInfo> {
   get children => null;
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

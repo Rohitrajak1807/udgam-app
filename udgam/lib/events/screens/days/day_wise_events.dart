@@ -1,31 +1,38 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:udgam/models/event_details.dart';
 import 'package:udgam/events/screens/days/day-cards.dart';
-import 'package:udgam/events/eventsDatabase/events_details.dart';
 import 'package:udgam/events/eventDashboards/EventPageNavigation.dart';
 
-class Day1 extends StatefulWidget {
-  Day1({Key key, this.title}) : super(key: key);
+class Day extends StatefulWidget {
+  final List<EventDetails> eventsData;
+  Day({Key key, this.title, @required this.eventsData}) : super(key: key);
 
   final String title;
 
   @override
-  _Day1State createState() => _Day1State();
+  _DayState createState() => _DayState(this.eventsData);
 }
 
 var mov = 27.0 / 41.0;
 var aspectRatio = mov * 1.2;
 
-class _Day1State extends State<Day1> {
-  static var _eventListDay1 = eventsList[0]; ////assigning day 1 list
-  double currentPage = _eventListDay1.length - 1.0;
+class _DayState extends State<Day> {
+  List<EventDetails> _eventListDay;
+  double currentPage;
+  _DayState(this._eventListDay);
+  @override
+  void initState() {
+    super.initState();
+    currentPage = _eventListDay.length - 1.0;
+  }
 
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     PageController controller =
-        PageController(initialPage: _eventListDay1.length - 1);
+        PageController(initialPage: _eventListDay.length - 1);
     controller.addListener(() {
       setState(() {
         currentPage = controller.page;
@@ -104,18 +111,18 @@ class _Day1State extends State<Day1> {
                       InkWell(
                         child: Stack(
                           children: <Widget>[
-                            PosterScrollWidget(_eventListDay1, currentPage),
+                            PosterScrollWidget(_eventListDay, currentPage),
                             Positioned.fill(
                               child: PageView.builder(
-                                itemCount: _eventListDay1.length,
+                                itemCount: _eventListDay.length,
                                 controller: controller,
                                 itemBuilder: (context, index) {
-                                   return Column(
+                                  return Column(
                                     children: <Widget>[
                                       Container(),
                                     ],
                                   );
-                                },////////////////////
+                                }, ////////////////////
                               ),
                             ),
                           ],
@@ -130,14 +137,14 @@ class _Day1State extends State<Day1> {
                         },
                       ),
                       Text(
-                        _eventListDay1[currentPage.round()]['eventName'],
+                        _eventListDay[currentPage.round()].title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.white.withOpacity(0.4)),
                       ),
-                      // TextScrollWidget(_eventListDay1,currentPage),///////////
+                      // TextScrollWidget(_eventListDay,currentPage),///////////
                     ],
                   ),
                 ),
