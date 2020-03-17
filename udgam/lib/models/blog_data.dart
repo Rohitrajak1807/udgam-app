@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
+import 'package:udgam/widgets/likes_button.dart';
 import 'package:udgam/widgets/show_image.dart';
-import '../widgets/likes.dart';
-import 'package:cache_image/cache_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:udgam/widgets/delete_post.dart';
+import 'package:udgam/widgets/report_post.dart';
 
-@override
-class BlogData extends StatefulWidget {
+
+// ignore: must_be_immutable
+class BlogData extends StatelessWidget {
   final DataSnapshot snapshot;
+  final String uid;
+  BlogData(this.snapshot, this.uid);
 
-  BlogData(this.snapshot);
+  bool delbutton = false;
 
-  @override
-  _BlogDataState createState() => _BlogDataState();
-}
 
-class _BlogDataState extends State<BlogData> {
-  bool _liked = true;
-
-  @override
-  void initState() {
-    super.initState();
-    // _database.reference().child(postsNode).onChildAdded.listen(_childAdded);
-  }
 
   @override
   Widget build(BuildContext context) {
+
+
+    if(snapshot.value['uid'] == uid || uid=='uOxH4Q83eCeTvefB0bPotheze4J3')
+    {
+      delbutton = true;
+    }
+
+
     return new Column(
       children: <Widget>[
         Container(
@@ -40,23 +42,28 @@ class _BlogDataState extends State<BlogData> {
                 leading: CircleAvatar(
                     backgroundColor: Colors.blue,
                     child: Icon(Icons.account_circle)),
-                title: Text(
-                  '${widget.snapshot.value['by']}',
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-                trailing: Icon(Icons.more_vert),
+                title: Text('${snapshot.value['by']}',
+                    style: TextStyle(fontWeight: FontWeight.w600)),
+                trailing: IconButton(
+                  icon: delbutton?Icon(Icons.delete):Icon(Icons.report_problem),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+
+                      builder: (_) {
+                        return delbutton?DeletePost(snapshot.key):ReportPost(snapshot.key, uid);
+                      },
+                    );
+                  },
+                )
               ),
               Container(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: GestureDetector(
-                  child: FadeInImage(
-                    fadeOutDuration: new Duration(milliseconds: 20),
-                    fadeInDuration: new Duration(milliseconds: 60),
-                    fit: BoxFit.cover,
-                    image: CacheImage(
-                      'gs://udgamblog.appspot.com/blogimg/${widget.snapshot.key}.${widget.snapshot.value['ext']}',
-                    ),
-                    placeholder: AssetImage('assets/images/loader.gif'),
+                  child: CachedNetworkImage(
+                    imageUrl: snapshot.value['imglink'],
+                    placeholder: (context, url) => Image.asset('assets/images/loader.gif'),
+                    errorWidget: (context, url, error) => Container(child: Icon(Icons.error)),
                   ),
                   onDoubleTap: () {
                     Navigator.push(
@@ -64,8 +71,8 @@ class _BlogDataState extends State<BlogData> {
                       MaterialPageRoute(
                         builder: (_) {
                           return ShowImage(
-                              imageLink:
-                                  'gs://udgamblog.appspot.com/blogimg/${widget.snapshot.key}.${widget.snapshot.value['ext']}');
+                              imageLink: snapshot.value['imglink'],
+                                  );
                         },
                       ),
                     );
@@ -77,7 +84,7 @@ class _BlogDataState extends State<BlogData> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
                   child: Text(
-                    widget.snapshot.value['body'],
+                    snapshot.value['body'],
                     textAlign: TextAlign.justify,
                   ),
                 ),
@@ -86,39 +93,15 @@ class _BlogDataState extends State<BlogData> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(
-                              _liked == false
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Colors.red),
-                          onPressed: () {
-                            print(_liked);
-                            setState(() {
-                              _liked = !_liked;
-                            });
-                          },
-                        ),
-                        GestureDetector(
-                          child: Text('5k'),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LikesPage()),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                  
+                    new LikeButton(uid: uid, pid: snapshot.key),
+                    
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
                       child: Text(
                         DateFormat('dd MMM yyyy - KK:mm a')
                             .format(DateTime.fromMillisecondsSinceEpoch(
-                                widget.snapshot.value['date']))
+                                snapshot.value['date']))
                             .toString(),
                         textAlign: TextAlign.right,
                       ),

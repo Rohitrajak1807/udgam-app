@@ -11,18 +11,20 @@ class PostService {
   Map post;
   PostService(this.post);
 
-  uploadPic(_image, imageKey, k) async {
+  uploadData(_image, postname, k) async {
+    _databaseReference = database.reference().child(postsNode);
     _firebaseStorageRef =
-        FirebaseStorage.instance.ref().child('blogimg/${imageKey + '.' + k}');
+        FirebaseStorage.instance.ref().child('blogimg/${postname + '.' + k}');
     StorageUploadTask uploadTask = _firebaseStorageRef.putFile(_image);
-    await uploadTask.onComplete;
+
+    var downurl =  await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url = downurl.toString();
+
+    post['imglink'] = url;
+    await _databaseReference.child(postname).set(post);
+
+
   }
 
-  String addPost() {
-    String uniqueKey;
-    _databaseReference = database.reference().child(postsNode);
-    uniqueKey = _databaseReference.push().key;
-    _databaseReference.child(uniqueKey).set(post);
-    return uniqueKey;
-  }
+
 }

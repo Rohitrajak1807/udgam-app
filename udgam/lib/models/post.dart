@@ -6,16 +6,17 @@ class Post {
   static const BODY = "body";
   static const BY = "by";
   static const UID = "uid";
-  static const EXT = "ext";
+  static const IMGLINK = "imglink";
+
 
   int date;
   String key;
   String body;
   String by;
   String uid;
-  String ext;
+  String imglink;
 
-  Post(this.date, this.body, this.by, this.uid, this.ext);
+  Post(this.date, this.body, this.by, this.uid, this.imglink);
 
   Post.fromSnapshot(DataSnapshot snap)
       : this.key = snap.key,
@@ -23,10 +24,12 @@ class Post {
         this.date = snap.value[DATE],
         this.by = snap.value[BY],
         this.uid = snap.value[UID],
-        this.ext = snap.value[EXT];
+        this.imglink = snap.value[IMGLINK];
 
 
   Map toMap() {
-    return {BODY: body, DATE: date, BY: by, UID: uid, EXT: ext};
+    return {KEY: key, BODY: body, DATE: date, BY: by, UID: uid, IMGLINK: imglink};
   }
 }
+
+

@@ -37,6 +37,7 @@ class Auth implements BaseAuth {
     return user;
   }
 
+
   Future<void> signOut() async {
     return _firebaseAuth.signOut();
   }
@@ -51,6 +52,11 @@ class Auth implements BaseAuth {
     return user.isEmailVerified;
   }
 }
+
+
+
+
+
 
 
 
