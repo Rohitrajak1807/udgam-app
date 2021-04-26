@@ -247,7 +247,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           child: Text(
             _isLoginForm ? 'Login' : 'Create account',
             style: TextStyle(
-                fontSize: 20.0, color: Theme.of(context).textTheme.title.color),
+                fontSize: 20.0, color: Theme.of(context).textTheme.headline6.color),
           ),
           onPressed: validateAndSubmit,
         ),
